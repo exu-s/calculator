@@ -20,7 +20,7 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             flex: 2,
             child: Container(
-              color: Colors.deepOrange,
+              color: Colors.deepOrange[200],
             ),
           ),
         ],
