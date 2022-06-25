@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:calculator/buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var userQuestion = 'OK';
+
+  var userAnswer = 'KO';
   final List<String> buttons = [
     'C',
     'DEL',
@@ -39,7 +44,15 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         children: [
           Expanded(
-            child: Container(),
+            child: Container(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Text(userQuestion),
+                  Text(userAnswer),
+                ],
+              ),
+            ),
           ),
           Expanded(
             flex: 2,
