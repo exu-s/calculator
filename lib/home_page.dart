@@ -50,15 +50,38 @@ class _HomePageState extends State<HomePage> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4),
                     itemBuilder: (BuildContext context, int index) {
-                      return MyButton(
-                        buttonText: buttons[index],
-                        color: Colors.deepOrange,
-                        textColor: Colors.white,
-                      );
+                      if (index == 0) {
+                        return MyButton(
+                            buttonText: buttons[index],
+                            color: Colors.green,
+                            textColor: Colors.white);
+                      } else if (index == 1) {
+                        return MyButton(
+                            buttonText: buttons[index],
+                            color: Colors.amber,
+                            textColor: Colors.white);
+                      } else {
+                        return MyButton(
+                          buttonText: buttons[index],
+                          color: isOperator(buttons[index])
+                              ? Colors.deepOrange
+                              : Colors.deepPurple[50],
+                          textColor: isOperator(buttons[index])
+                              ? Colors.white
+                              : Colors.deepOrange,
+                        );
+                      }
                     })),
           ),
         ],
       ),
     );
   }
+}
+
+bool isOperator(String x) {
+  if (x == '%' || x == '/' || x == 'X' || x == '-' || x == '+' || x == '=') {
+    return true;
+  }
+  return false;
 }
