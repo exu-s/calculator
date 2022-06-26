@@ -1,5 +1,3 @@
-import 'dart:html';
-
 import 'package:calculator/buttons.dart';
 import 'package:flutter/material.dart';
 
@@ -11,9 +9,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var userQuestion = 'OK';
+  var userQuestion = '';
+  var userAnswer = '';
 
-  var userAnswer = 'KO';
   final List<String> buttons = [
     'C',
     'DEL',
@@ -48,8 +46,23 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(userQuestion),
-                  Text(userAnswer),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Container(
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        userQuestion,
+                        style: const TextStyle(fontSize: 30),
+                      )),
+                  Container(
+                      padding: const EdgeInsets.all(20),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        userAnswer,
+                        style: const TextStyle(fontSize: 30),
+                      )),
                 ],
               ),
             ),
@@ -63,18 +76,31 @@ class _HomePageState extends State<HomePage> {
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 4),
                     itemBuilder: (BuildContext context, int index) {
+                      // clear button
                       if (index == 0) {
                         return MyButton(
+                            buttonTapped: () {
+                              setState(() {
+                                userQuestion = '';
+                              });
+                            },
                             buttonText: buttons[index],
                             color: Colors.green,
                             textColor: Colors.white);
-                      } else if (index == 1) {
+                      }
+                      // delete button
+                      else if (index == 1) {
                         return MyButton(
                             buttonText: buttons[index],
                             color: Colors.amber,
                             textColor: Colors.white);
                       } else {
                         return MyButton(
+                          buttonTapped: () {
+                            setState(() {
+                              userQuestion += buttons[index];
+                            });
+                          },
                           buttonText: buttons[index],
                           color: isOperator(buttons[index])
                               ? Colors.deepOrange
