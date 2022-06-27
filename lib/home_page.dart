@@ -91,6 +91,12 @@ class _HomePageState extends State<HomePage> {
                       // delete button
                       else if (index == 1) {
                         return MyButton(
+                            buttonTapped: () {
+                              setState(() {
+                                userQuestion = userQuestion.substring(
+                                    0, userQuestion.length - 1);
+                              });
+                            },
                             buttonText: buttons[index],
                             color: Colors.amber,
                             textColor: Colors.white);
