@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         userAnswer,
-                        style: const TextStyle(fontSize: 30),
+                        style: const TextStyle(fontSize: 50),
                       )),
                 ],
               ),
