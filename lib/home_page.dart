@@ -1,5 +1,6 @@
 import 'package:calculator/buttons.dart';
 import 'package:flutter/material.dart';
+import 'package:math_expressions/math_expressions.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -82,6 +83,7 @@ class _HomePageState extends State<HomePage> {
                             buttonTapped: () {
                               setState(() {
                                 userQuestion = '';
+                                userAnswer = '';
                               });
                             },
                             buttonText: buttons[index],
@@ -100,7 +102,24 @@ class _HomePageState extends State<HomePage> {
                             buttonText: buttons[index],
                             color: Colors.amber,
                             textColor: Colors.white);
-                      } else {
+                      }
+
+                      // equal button
+
+                      else if (index == buttons.length - 1) {
+                        return MyButton(
+                            buttonTapped: () {
+                              setState(() {
+                                equalPressed();
+                              });
+                            },
+                            buttonText: buttons[index],
+                            color: Colors.deepOrange,
+                            textColor: Colors.white);
+                      }
+
+                      // other buttons
+                      else {
                         return MyButton(
                           buttonTapped: () {
                             setState(() {
@@ -122,11 +141,23 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-}
 
-bool isOperator(String x) {
-  if (x == '%' || x == '/' || x == 'X' || x == '-' || x == '+' || x == '=') {
-    return true;
+  bool isOperator(String x) {
+    if (x == '%' || x == '/' || x == 'X' || x == '-' || x == '+' || x == '=') {
+      return true;
+    }
+    return false;
   }
-  return false;
+
+  void equalPressed() {
+    String finalQuestion = userQuestion;
+    finalQuestion = finalQuestion.replaceAll('X', '*');
+
+    Parser p = Parser();
+    Expression exp = p.parse(finalQuestion);
+    ContextModel cm = ContextModel();
+    // Evaluate expression:
+    double eval = exp.evaluate(EvaluationType.REAL, cm);
+    userAnswer = eval.toString();
+  }
 }
